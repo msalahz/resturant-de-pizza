@@ -21,7 +21,6 @@ function App() {
           <p>Price:{p.price}</p>
         </div>
       ))}
-      <img src="https://pizzaonline.dominos.co.in/assets/osc/ABAAA/images/products/originals/margherita.jpg" alt="" />
     </div>
   )
 }
