@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { IProduct } from './types'
 
 function App() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState<IProduct[]>([])
 
   useEffect(() => {
     fetch('/api/products')
@@ -11,8 +12,16 @@ function App() {
 
   return (
     <div>
-      <label htmlFor="products">Products:</label>
-      <pre>{JSON.stringify(products, null, 2)}</pre>
+      <h2>Menu:</h2>
+      {products.map((p) => (
+        <div key={p.id}>
+          <img src={p?.image} alt={p.type} />
+          <h4>{p.type}</h4>
+          <p>{p.description}</p>
+          <p>Price:{p.price}</p>
+        </div>
+      ))}
+      <img src="https://pizzaonline.dominos.co.in/assets/osc/ABAAA/images/products/originals/margherita.jpg" alt="" />
     </div>
   )
 }
