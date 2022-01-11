@@ -4,6 +4,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import PackageJSON from '../package.json'
+
+console.log(`version ${PackageJSON.version}`)
 
 ReactDOM.render(
   <React.StrictMode>
