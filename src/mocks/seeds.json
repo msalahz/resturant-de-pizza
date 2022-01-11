@@ -1,0 +1,56 @@
+[
+  {
+    "type": "Dynamite Chicken Ranch",
+    "description": "Ranch base sauce with grilled chicken pieces, mushroom slices, mozzarella cheese, diced tomatoes and crushed garlic. Finished off with delicious drizzle of Dynamite Sauce and chopped parsley.\r\n",
+    "price": 15.99,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/175-X-175-Dy-Chicken-rancht.jpg"
+  },
+  {
+    "type": "Margherita",
+    "description": "Go Back to where it all began with the classic cheese and tomato base",
+    "price": 92.5,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/margherita-min1.png"
+  },
+  {
+    "type": "Super Supreme",
+    "description": "Our famous combination of Beef Pepperoni, juicy Beef, Mushrooms, Green Peppers, Onions, Black Olives and melting mozzarella cheese.",
+    "price": 168.99,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/super_supreme_showcase-min1.png"
+  },
+  {
+    "type": "Classic Pepperoni",
+    "description": "One of our all time specialties. A meaty feast of Pepperoni, Mushroom , Black Olives, mozzarella cheese and tomato sauce",
+    "price": 160,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/classic_pepperoni_showcase-min1.png"
+  },
+  {
+    "type": "Cheese Lovers",
+    "description": "A special triple blend of cheese with any two toppings of your choice(not valid on the following toppings: Calamari, Prawns or Anchovies)",
+    "price": 151,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/cheese lovers.png"
+  },
+  {
+    "type": "Chicken Supreme",
+    "description": "The ultimate mix of Chicken together with Mushrooms, Red Onions, Green Peppers, fresh Tomatoes, Olives and melting mozzarella cheese.",
+    "price": 150,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/chicken supreme.png"
+  },
+  {
+    "type": "Vegetarian",
+    "description": "Mushrooms, Green peppers, Fresh Tomatoes, Onions, and Black Olives Loaded on a tomato base and topped with melting mozzarella cheese",
+    "price": 160,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/veggie_showcase-min1.png"
+  },
+  {
+    "type": "Spicy Chicken Ranch",
+    "description": "Ranch base sauce with grilled chicken pieces, topped with mushroom slices, mixed with Mozzarella and chopped Jalapeno’s, diced tomatoes\r\n and Ranch drizzle sauce and chopped parsley.",
+    "price": 149,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/Spicy Chicken Ranch175x175.png"
+  },
+  {
+    "type": "Prawn",
+    "description": "A mouth-watering combination of Prawns, Black Olives, Green Peppers and a touch of Garlic",
+    "price": 143.42,
+    "image": "https://martjackamstorage.azureedge.net/am-resources/c3877a59-69f7-40fa-bb17-ae5b9ac37732/Images/ProductImages/Large/Praw-p1.png"
+  }
+]
