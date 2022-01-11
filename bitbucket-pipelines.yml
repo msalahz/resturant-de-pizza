@@ -21,20 +21,13 @@ definitions:
       script:
         - npm run build
 
-  build: &build
-    step:
-      name: Build
-      script:
-        - npm run build
-      artifacts:
-        - build/**
-
 
   deploy:test: &deploy-test
     step:
       name: Deploy to s3 test environment
       deployment: TEST
       script:
+        - npm run build
         - pipe: atlassian/aws-s3-deploy:1.1.0
           variables:
             AWS_ACCESS_KEY_ID: $ACCESS_KEY_ID
@@ -49,6 +42,7 @@ definitions:
       name: Deploy to s3 production environment
       deployment: PRODUCTION
       script:
+        - npm run build
         - pipe: atlassian/aws-s3-deploy:1.1.0
           variables:
             AWS_ACCESS_KEY_ID: $ACCESS_KEY_ID
@@ -69,14 +63,10 @@ pipelines:
     # Deploy to test env
     dev:
       - <<: *install
-      - parallel:
-          - <<: *test-lint
-          - <<: *build
+      - <<: *test-lint
       - <<: *deploy-test
     # Deploy to production env
     master:
       - <<: *install
-      - parallel:
-          - <<: *test-lint
-          - <<: *build
+      - <<: *test-lint
       - <<: *deploy-production
