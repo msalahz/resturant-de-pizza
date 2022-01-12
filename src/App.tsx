@@ -1,8 +1,14 @@
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
 import { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 
 import { db } from './firebase'
 import { IProduct } from './types'
+
+import MuiContainer from './components/containers/MuiContainer'
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([])
@@ -13,21 +19,30 @@ function App() {
       const products = await getDocs(productsRef)
       setProducts(products.docs.map((doc) => ({ id: doc.id, ...doc.data() } as IProduct)))
     }
+
     init().finally()
   }, [])
 
   return (
-    <div>
-      <h2>Menu:</h2>
-      {products.map((p) => (
-        <div key={p.id}>
-          <img src={p?.image} alt={p.type} />
-          <h4>{p.type}</h4>
-          <p>{p.description}</p>
-          <p>Price:{p.price}</p>
-        </div>
-      ))}
-    </div>
+    <MuiContainer>
+      <div>
+        <h2>Menu:</h2>
+        <Grid container sx={{ width: 1, p: 2 }} spacing={2} justifyContent="space-around" alignItems="center">
+          {products.map((p) => (
+            <Grid key={p.id} item container xs={12} md={4} lg={3} justifyContent="space-around" alignItems="center">
+              <Card sx={{ p: 1, width: 'auto' }}>
+                <CardMedia component="img" height="260" image={p?.image} />
+                <Typography>{p.type}</Typography>
+                <Typography>Price:{p.price}</Typography>
+                <Typography noWrap sx={{ width: 250 }}>
+                  {p.description}
+                </Typography>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+    </MuiContainer>
   )
 }
 
