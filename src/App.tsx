@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
+import { collection, getDocs } from 'firebase/firestore'
+
+import { db } from './firebase'
 import { IProduct } from './types'
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([])
 
   useEffect(() => {
-    fetch('/api/products')
-      .then((res) => res.json())
-      .then((data) => setProducts(data))
+    async function init() {
+      const productsRef = collection(db, 'products')
+      const products = await getDocs(productsRef)
+      setProducts(products.docs.map((doc) => ({ id: doc.id, ...doc.data() } as IProduct)))
+    }
+    init().finally()
   }, [])
 
   return (
