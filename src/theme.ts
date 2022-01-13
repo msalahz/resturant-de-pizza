@@ -22,15 +22,17 @@ const options: ThemeOptions = {
   },
   palette: {
     primary: {
-      main: '#0057FF',
-      contrastText: '#FFFFFF',
+      main: '#ff982b',
+      contrastText: '#f7f7f7',
     },
     secondary: {
-      main: '#000000',
-      contrastText: '#FFFFFF',
+      main: '#111111',
     },
     background: {
-      default: '#fff',
+      default: '#f7f7f7',
+    },
+    text: {
+      primary: '#4A4949',
     },
   },
   shape: {
