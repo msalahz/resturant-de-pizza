@@ -18,3 +18,7 @@ export interface IOrder {
   items: IOrderItem[]
   placementDate?: Date
 }
+
+export interface IUser {
+  id: string
+}
