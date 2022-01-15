@@ -42,7 +42,7 @@ function OrderSummaryItem({ data, orderId, disabled = false, onChange }: Props):
       </Grid>
 
       <Grid item container xs={4} justifyContent="flex-end" alignItems="center">
-        <Typography sx={{ fontSize: 15, fontWeight: 600 }}>${getOrderItemTotalWithCurrency(data)}</Typography>
+        <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{getOrderItemTotalWithCurrency(data)}</Typography>
       </Grid>
     </Grid>
   )
