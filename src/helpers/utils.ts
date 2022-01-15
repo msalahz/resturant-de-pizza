@@ -11,3 +11,17 @@ export const getOrderSubTotal = (order: IOrder) => order?.items?.reduce((acc, cu
 export const getOrderItemTotalWithCurrency = (orderItem: IOrderItem) => getCurrency(getOrderItemTotal(orderItem))
 
 export const getOrderSubTotalWithCurrency = (order: IOrder) => getCurrency(getOrderSubTotal(order))
+
+export function toShortLocalDateTime(timestamp?: number | null): string | null {
+  if (!timestamp) return null
+
+  const opts: Intl.DateTimeFormatOptions = {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  }
+  return new Date(timestamp).toLocaleString([], opts)
+}
