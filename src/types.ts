@@ -9,14 +9,14 @@ export interface IProduct {
 export interface IOrderItem {
   id: string
   amount: number
-  products: IProduct
+  product: IProduct
 }
 
 export interface IOrder {
   id: string
   userId: string
   items: IOrderItem[]
-  placementDate?: Date
+  placementTimestamp: number | null
 }
 
 export interface IUser {
