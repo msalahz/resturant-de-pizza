@@ -1,5 +1,4 @@
 import Cookies from 'universal-cookie'
-import { isProduction } from './common'
 
 const cookies = new Cookies()
 
@@ -8,7 +7,6 @@ export function setCookie(cookieName: string, value: string, expiresAt?: Date): 
     path: '/',
     sameSite: true,
     expires: expiresAt ? expiresAt : undefined,
-    secure: isProduction(),
   }
 
   cookies.set(cookieName, value, options)
