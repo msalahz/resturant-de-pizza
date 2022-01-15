@@ -8,7 +8,6 @@ import {
   UseQueryOptions,
   UseMutationResult,
   UseMutationOptions,
-  QueryObserverResult,
 } from 'react-query'
 
 import { db } from '../firebase'
@@ -16,31 +15,45 @@ import { IOrder, IOrderItem } from '../types'
 
 export const ordersKey = 'orders'
 export const activeOrderKey = 'active-order'
+export const orderHistoryKey = 'order-history'
 export const activeOrderItemKey = 'active-order-item'
 
-export function useOrdersQuery(options: UseQueryOptions<IOrder[]> = {}): QueryObserverResult<IOrder[]> {
+export function useOrdersHistoryByUserIdQuery(
+  userId?: string,
+  options: UseQueryOptions<IOrder[]> = {}
+): UseQueryResult<IOrder[]> {
+  const queryClient = useQueryClient()
+
   return useQuery({
-    staleTime: 0,
-    queryKey: [ordersKey],
+    enabled: !!userId,
+    queryKey: [orderHistoryKey],
     queryFn: async () => {
       const ordersRef = collection(db, ordersKey)
-      const q = query(ordersRef, where('placementTimestamp', '!=', null))
+      const q = query(ordersRef, where('placementTimestamp', '!=', null), where('userId', '==', userId))
       const orders = await getDocs(q)
-      return orders.docs.map((doc) => ({ id: doc.id, ...doc.data() } as IOrder))
+      return orders.docs.map((order) => ({ id: order.id, ...order.data() } as IOrder))
+    },
+    onSuccess(data: IOrder[]) {
+      for (const order of data) {
+        queryClient.setQueryData([ordersKey, { id: order.id }], order)
+      }
     },
     ...options,
   })
 }
 
-export function useOrderByIdQuery(id: string, options: UseQueryOptions<IOrder> = {}): UseQueryResult<IOrder> {
+export function useOrderByIdQuery(
+  orderId?: string,
+  options: UseQueryOptions<IOrder | null> = {}
+): UseQueryResult<IOrder | null> {
   return useQuery({
-    staleTime: Infinity,
+    enabled: !!orderId,
     notifyOnChangeProps: 'tracked',
-    queryKey: [ordersKey, { id }],
+    queryKey: [ordersKey, { id: orderId }],
     queryFn: async () => {
-      const orderRef = doc(db, ordersKey, id)
+      const orderRef = doc(db, ordersKey, orderId as string)
       const order = await getDoc(orderRef)
-      return { id: order.id, ...order.data() } as IOrder
+      return order?.id ? ({ id: order.id, ...order.data() } as IOrder) : null
     },
     ...options,
   })
@@ -54,6 +67,7 @@ export function useActiveOrderByUserIdQuery(
 
   return useQuery({
     enabled: !!userId,
+    cacheTime: 0,
     notifyOnChangeProps: 'tracked',
     queryKey: [activeOrderKey],
     queryFn: async () => {
@@ -63,7 +77,6 @@ export function useActiveOrderByUserIdQuery(
       const order = orders.docs.find((_, idx) => idx === 0)
       return order?.id ? ({ id: order.id, ...order.data() } as IOrder) : null
     },
-
     onSuccess(data: IOrder | null) {
       if (data?.items.length) {
         for (const item of data.items) {
@@ -71,7 +84,6 @@ export function useActiveOrderByUserIdQuery(
         }
       }
     },
-
     ...options,
   })
 }
@@ -133,6 +145,8 @@ export function useUpdateOrder(
       if (data?.placementTimestamp) {
         // remove active order from cash when it has placementTimestamp
         queryClient.removeQueries([activeOrderKey])
+        // update order by id cash
+        queryClient.setQueryData([ordersKey, { id: data.id }], data)
       } else {
         // update active order cash
         queryClient.setQueryData([activeOrderKey], data)
