@@ -1,4 +1,5 @@
 import _get from 'lodash/get'
+import { Fragment } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
@@ -9,17 +10,19 @@ import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import ListSubheader from '@mui/material/ListSubheader'
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart'
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
 
-import { IOrder, IOrderItem } from '../../types'
+import { IOrderItem } from '../../types'
 import { useSnackbar } from '../containers/SnackbarContainer'
 
 import { useSession } from '../containers/SessionContainer'
 import { useActiveOrderByUserIdQuery, useDeleteOrder, useUpdateOrder } from '../../stores/ordersStore'
 
 import Button from '../ui/Button'
-import Loading from '../layout/Loading'
 import OrderSummaryItem from './OrderSummaryItem'
 import OrderSummaryEmptyPlaceholder from './OrderSummaryEmptyPlaceholder'
+import { getOrderSubTotalWithCurrency } from '../../helpers/utils'
 
 function OrderSummary(): JSX.Element {
   const { getUser } = useSession()
@@ -27,8 +30,6 @@ function OrderSummary(): JSX.Element {
   const { data, isLoading } = useActiveOrderByUserIdQuery(getUser()?.id)
   const { mutate: updateOrder, isLoading: isUpdatingOrder } = useUpdateOrder()
   const { mutate: deleteOrder, isLoading: isDeletingOrder } = useDeleteOrder()
-  const getItemTotal = (item: IOrderItem) => item.amount * (item?.product?.price ?? 0)
-  const getOrderSubTotal = (order: IOrder) => order.items.reduce((acc, curr) => acc + getItemTotal(curr), 0)
 
   const onSuccess = (body: string) => {
     openSnackbar({ severity: 'success', body })
@@ -104,9 +105,7 @@ function OrderSummary(): JSX.Element {
     }
   }
 
-  if (isLoading) return <Loading />
-
-  if (!data || !data.items.length) return <OrderSummaryEmptyPlaceholder />
+  if (!data || !data.items.length) return <OrderSummaryEmptyPlaceholder isLoading={isLoading} />
 
   return (
     <Card sx={{ height: 'auto', minHeight: 350, width: { xs: 1, md: 0.5, lg: 1 } }}>
@@ -122,54 +121,50 @@ function OrderSummary(): JSX.Element {
             >
               <Divider sx={{ m: 2 }} />
               {data?.items.map((item) => (
-                <ListItem key={item.id}>
-                  <OrderSummaryItem
-                    data={item}
-                    orderId={data.id}
-                    onChange={updateOrderItem}
-                    disabled={isUpdatingOrder || isDeletingOrder}
-                  />
-                </ListItem>
+                <Fragment key={item.id}>
+                  <ListItem>
+                    <OrderSummaryItem
+                      data={item}
+                      orderId={data.id}
+                      onChange={updateOrderItem}
+                      disabled={isUpdatingOrder || isDeletingOrder}
+                    />
+                  </ListItem>
+                  <Divider sx={{ m: 1 }} />
+                </Fragment>
               ))}
             </List>
           </Grid>
 
-          <Divider sx={{ m: 2 }} />
-
           <Box sx={{ px: 2 }}>
             <Grid container item justifyContent="center" spacing={1}>
               <Grid item xs={6}>
-                <Typography sx={{ fontSize: 17, fontWeight: 600 }}>Subtotal</Typography>
+                <Typography gutterBottom sx={{ fontSize: 18, fontWeight: 600 }}>
+                  Subtotal
+                </Typography>
               </Grid>
 
               <Grid item container xs={6} justifyContent="flex-end">
                 <Grid item>
-                  <Typography sx={{ fontSize: 16, fontWeight: 600 }}>${getOrderSubTotal(data).toFixed(2)}</Typography>
+                  <Typography sx={{ fontSize: 18, fontWeight: 600 }}>{getOrderSubTotalWithCurrency(data)}</Typography>
                 </Grid>
               </Grid>
 
               <Grid item container>
-                <Button
-                  fullWidth
-                  size="large"
-                  disabled={isDeletingOrder}
-                  isLoading={isUpdatingOrder}
-                  onClick={handlePlaceOrder}
-                >
-                  Place Order | ${getOrderSubTotal(data).toFixed(2)}
+                <Button fullWidth disabled={isDeletingOrder} isLoading={isUpdatingOrder} onClick={handlePlaceOrder}>
+                  <Typography sx={{ mr: 1 }}>Place Order</Typography> <ShoppingCartCheckoutIcon fontSize="small" />
                 </Button>
               </Grid>
 
               <Grid item container>
                 <Button
                   fullWidth
-                  size="large"
                   color="secondary"
                   onClick={handleDeleteOrder}
                   disabled={isUpdatingOrder}
                   isLoading={isDeletingOrder}
                 >
-                  Clear Order
+                  <Typography sx={{ mr: 1 }}>Delete Order</Typography> <RemoveShoppingCartIcon fontSize="small" />
                 </Button>
               </Grid>
             </Grid>

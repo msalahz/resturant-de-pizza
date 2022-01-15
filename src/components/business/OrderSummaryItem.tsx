@@ -7,6 +7,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 
 import { IOrderItem } from '../../types'
 import { useOrderItemByIdQuery } from '../../stores/ordersStore'
+import { getOrderItemTotalWithCurrency } from '../../helpers/utils'
 
 import TextFieldWithIncrementDecrement from '../ui/TextFieldWithIncrementDecrement'
 
@@ -19,7 +20,6 @@ type Props = {
 
 function OrderSummaryItem({ data, orderId, disabled = false, onChange }: Props): JSX.Element {
   const { data: orderItem } = useOrderItemByIdQuery(orderId, data.id, { initialData: data })
-  const getItemTotal = (item: IOrderItem) => item.amount * (item?.product?.price ?? 0)
   const updateOrderItemAmount = (amount: number) => onChange({ ...orderItem, amount } as IOrderItem)
   const orderedAmount = orderItem?.amount ?? 0
 
@@ -42,7 +42,7 @@ function OrderSummaryItem({ data, orderId, disabled = false, onChange }: Props):
       </Grid>
 
       <Grid item container xs={4} justifyContent="flex-end" alignItems="center">
-        <Typography sx={{ fontSize: 15, fontWeight: 600 }}>${getItemTotal(data).toFixed(2)}</Typography>
+        <Typography sx={{ fontSize: 15, fontWeight: 600 }}>${getOrderItemTotalWithCurrency(data)}</Typography>
       </Grid>
     </Grid>
   )

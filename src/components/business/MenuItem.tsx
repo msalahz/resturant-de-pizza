@@ -10,6 +10,7 @@ import CardActions from '@mui/material/CardActions'
 import { IProduct } from '../../types'
 
 import AddToCartButton from './AddToCartButton'
+import { getCurrency } from '../../helpers/utils'
 
 type Props = { data: IProduct }
 
@@ -33,7 +34,7 @@ function MenuItem({ data: product }: Props): JSX.Element {
             </Grid>
 
             <Grid item container xs={4} justifyContent="flex-end">
-              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>${product.price.toFixed(2)}</Typography>
+              <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{getCurrency(product?.price)}</Typography>
             </Grid>
           </Grid>
 

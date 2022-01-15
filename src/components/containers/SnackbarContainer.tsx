@@ -33,7 +33,7 @@ SnackbarContext.displayName = 'SnackbarContext'
 
 /* Provider */
 function SnackbarProvider(props: { children: JSX.Element | JSX.Element[]; autoHideDuration?: number }): ReactElement {
-  const { children, autoHideDuration = 5000 } = props
+  const { children, autoHideDuration = 3000 } = props
   const [state, setState] = useState<State>({
     open: false,
     body: '',
