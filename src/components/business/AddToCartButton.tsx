@@ -1,6 +1,3 @@
-import _get from 'lodash/get'
-import { FirebaseError } from '@firebase/util'
-
 import Typography from '@mui/material/Typography'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
@@ -19,29 +16,14 @@ type Props = {
 
 function AddToCartButton({ product }: Props): JSX.Element {
   const { getUser } = useSession()
-  const { openSnackbar } = useSnackbar()
+  const { openSuccessSnackbar, openErrorSnackbar } = useSnackbar()
   const userId = getUser()?.id as string
   const { data } = useActiveOrderByUserIdQuery(userId)
   const { mutate: addOrder, isLoading: isCreatingOrder } = useCreateOrder()
   const { mutate: updateOrder, isLoading: isUpdatingOrder } = useUpdateOrder()
   const orderedAmount = data?.items?.find((item) => item?.product?.id === product.id)?.amount ?? 0
-
-  const onSuccess = () => {
-    openSnackbar({
-      severity: 'success',
-      body: 'Order updated successfully!',
-    })
-  }
-
-  const onError = (error: FirebaseError) => {
-    const title = 'Order update failed!'
-    const msg = _get(error, 'message', undefined)
-    openSnackbar({
-      severity: 'error',
-      title: msg ? title : undefined,
-      body: msg ? msg : title,
-    })
-  }
+  const onSuccess = () => openSuccessSnackbar('Order updated successfully!')
+  const onError = (err: unknown) => openErrorSnackbar(err, 'Order update failed!')
 
   const handleAddToCart = () => {
     if (data?.id) {

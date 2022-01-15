@@ -8,7 +8,10 @@ import Loading from './components/layout/Loading'
 import PrivateRouteRPC from './components/render/PrivateRouteRPC'
 
 const location = new ReactLocation() // Set up a ReactLocation instance
-const Orders = lazy(() => import(/* webpackPrefetch: true, webpackChunkName: 'orders.route' */ './routes/Orders'))
+const Orders = lazy(() => import(/* webpackChunkName: 'orders.route' */ './routes/Orders/Orders'))
+const OrderDetails = lazy(
+  () => import(/* webpackChunkName: 'order.details.route' */ './routes/Orders/[OrderId]/OrderDetails')
+)
 
 function App(): JSX.Element {
   return (
@@ -17,8 +20,14 @@ function App(): JSX.Element {
         location={location}
         routes={[
           { path: '/', element: <PrivateRouteRPC render={() => <Home />} /> },
-          { path: '/orders', element: <PrivateRouteRPC render={() => <Orders />} /> },
-          { path: '/*', element: <NotFound /> },
+          {
+            path: 'orders',
+            children: [
+              { path: '/', element: <PrivateRouteRPC render={() => <Orders />} /> },
+              { path: ':orderId', element: <PrivateRouteRPC render={() => <OrderDetails />} /> },
+            ],
+          },
+          { path: '*', element: <NotFound /> },
         ]}
       >
         <Outlet />

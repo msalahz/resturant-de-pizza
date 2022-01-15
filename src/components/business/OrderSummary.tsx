@@ -1,11 +1,10 @@
-import _get from 'lodash/get'
 import { Fragment } from 'react'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
 import Card from '@mui/material/Card'
 import Divider from '@mui/material/Divider'
-import { FirebaseError } from '@firebase/util'
+import { useNavigate } from 'react-location'
 import ListItem from '@mui/material/ListItem'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
@@ -13,7 +12,7 @@ import ListSubheader from '@mui/material/ListSubheader'
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart'
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout'
 
-import { IOrderItem } from '../../types'
+import { IOrder, IOrderItem } from '../../types'
 import { useSnackbar } from '../containers/SnackbarContainer'
 
 import { useSession } from '../containers/SessionContainer'
@@ -25,24 +24,12 @@ import OrderSummaryEmptyPlaceholder from './OrderSummaryEmptyPlaceholder'
 import { getOrderSubTotalWithCurrency } from '../../helpers/utils'
 
 function OrderSummary(): JSX.Element {
+  const navigate = useNavigate()
   const { getUser } = useSession()
-  const { openSnackbar } = useSnackbar()
+  const { openSuccessSnackbar, openErrorSnackbar } = useSnackbar()
   const { data, isLoading } = useActiveOrderByUserIdQuery(getUser()?.id)
   const { mutate: updateOrder, isLoading: isUpdatingOrder } = useUpdateOrder()
   const { mutate: deleteOrder, isLoading: isDeletingOrder } = useDeleteOrder()
-
-  const onSuccess = (body: string) => {
-    openSnackbar({ severity: 'success', body })
-  }
-
-  const onError = (error: FirebaseError, title: string) => {
-    const msg = _get(error, 'message', undefined)
-    openSnackbar({
-      severity: 'error',
-      title: msg ? title : undefined,
-      body: msg ? msg : title,
-    })
-  }
 
   const handleDeleteOrder = () => {
     if (data?.id)
@@ -50,10 +37,10 @@ function OrderSummary(): JSX.Element {
         { orderId: data.id },
         {
           onSuccess() {
-            onSuccess('Order delete successfully!')
+            openSuccessSnackbar('Order delete successfully!')
           },
           onError(err) {
-            onError(err, 'Order delete failed!')
+            openErrorSnackbar(err, 'Order delete failed!')
           },
         }
       )
@@ -64,11 +51,12 @@ function OrderSummary(): JSX.Element {
       updateOrder(
         { data: { ...data, placementTimestamp: Date.now() } },
         {
-          onSuccess() {
-            onSuccess('Order placed successfully!')
+          onSuccess(order: IOrder) {
+            openSuccessSnackbar('Order placed successfully!')
+            navigate({ to: `/orders/${order.id}` })
           },
           onError(err) {
-            onError(err, 'Order place failed!')
+            openErrorSnackbar(err, 'Order place failed!')
           },
         }
       )
@@ -95,10 +83,10 @@ function OrderSummary(): JSX.Element {
         { data: { ...data, items } },
         {
           onSuccess() {
-            onSuccess('Order updated successfully!')
+            openSuccessSnackbar('Order updated successfully!')
           },
           onError(err) {
-            onError(err, 'Order update failed!')
+            openErrorSnackbar(err, 'Order update failed!')
           },
         }
       )
