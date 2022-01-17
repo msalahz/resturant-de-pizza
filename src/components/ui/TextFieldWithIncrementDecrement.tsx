@@ -1,4 +1,3 @@
-import { memo } from 'react'
 import { TextField } from '@mui/material'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
@@ -27,4 +26,4 @@ function TextFieldWithIncrementDecrement({ value, onChange, isLoading = false, d
   )
 }
 
-export default memo(TextFieldWithIncrementDecrement)
+export default TextFieldWithIncrementDecrement
