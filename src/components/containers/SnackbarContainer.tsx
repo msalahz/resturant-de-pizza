@@ -49,7 +49,7 @@ function SnackbarProvider(props: { children: JSX.Element | JSX.Element[]; autoHi
   })
   const handleOpen = (props: Props) => setState({ ...state, open: true, ...props })
   const handleClose = () => setState({ ...state, open: false })
-  const handleSuccessOpen = (body: string) => handleOpen({ severity: 'success', body })
+  const handleSuccessOpen = (body: string) => handleOpen({ severity: 'success', body, title: undefined })
 
   const handleErrorOpen = (error: unknown, title: string) => {
     const msg = _get(error, 'message', undefined)
