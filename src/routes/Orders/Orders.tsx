@@ -48,24 +48,30 @@ function Orders(): JSX.Element {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.map((order) => (
-              <TableRow
-                hover
-                key={order.id}
-                onClick={() => navigate({ to: `/orders/${order.id}` })}
-                sx={{ '&:last-child td': { border: 0 }, cursor: 'pointer', '& td': { fontSize: 16 } }}
-              >
-                <TableCell>{toShortLocalDateTime(order?.placementTimestamp)}</TableCell>
-                <TableCell>{getOrderSubTotalWithCurrency(order)}</TableCell>
-                <TableCell align="right">
-                  <RouterLink to={`/orders/${order.id}`} target="_blank">
-                    <Link component="p" color="primary">
-                      <OpenInNewIcon />
-                    </Link>
-                  </RouterLink>
-                </TableCell>
+            {data?.length === 0 ? (
+              <TableRow sx={{ '& td': { fontSize: 16, textAlign: 'center' } }}>
+                <TableCell colSpan={3}> No orders yet</TableCell>
               </TableRow>
-            ))}
+            ) : (
+              data?.map((order) => (
+                <TableRow
+                  hover
+                  key={order.id}
+                  onClick={() => navigate({ to: `/orders/${order.id}` })}
+                  sx={{ '&:last-child td': { border: 0 }, cursor: 'pointer', '& td': { fontSize: 16 } }}
+                >
+                  <TableCell>{toShortLocalDateTime(order?.placementTimestamp)}</TableCell>
+                  <TableCell>{getOrderSubTotalWithCurrency(order)}</TableCell>
+                  <TableCell align="right">
+                    <RouterLink to={`/orders/${order.id}`} target="_blank">
+                      <Link component="p" color="primary">
+                        <OpenInNewIcon />
+                      </Link>
+                    </RouterLink>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
