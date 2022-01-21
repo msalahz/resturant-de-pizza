@@ -1,4 +1,24 @@
-# Getting Started with Create React App
+## How to us
+
+* Download or clone the repo 
+```shell
+git clone https://msalahz@bitbucket.org/msalahz/pizzeria-web.git
+```
+* Install project dependencies
+```shell
+cd pizzeria-web
+npm install -f 
+```
+> The `-f` flag is forcing the instalation to avoid a temporary conflict of CRA dependency for craco library
+* Run the project
+```shell
+npm start
+```
+* Open [http://localhost:3000](http://localhost:3000).
+
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
