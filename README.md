@@ -1,22 +1,54 @@
 ## How to us
 
-* Download or clone the repo 
+* Download or clone the repo
+
 ```shell
-git clone https://msalahz@bitbucket.org/msalahz/pizzeria-web.git
+git clone https://github.com/msalahz/resturant-de-pizza
 ```
+
 * Install project dependencies
+
 ```shell
-cd pizzeria-web
+cd resturant-de-pizza
 npm install -f 
 ```
-> The `-f` flag is forcing the instalation to avoid a temporary conflict of CRA dependency for craco library
+
+> The `-f` flag is forcing the installation to avoid a temporary conflict of CRA dependency for craco library
+
 * Run the project
+
 ```shell
 npm start
 ```
+
 * Open [http://localhost:3000](http://localhost:3000).
+* The application can be tested online on the following link [http://pizzeria.com.s3-website.eu-central-1.amazonaws.com](http://pizzeria.com.s3-website.eu-central-1.amazonaws.com)
 
+## Prerequisites
 
+* [Git](https://git-scm.com/)
+* React, Typescript
+* Some storage of choice LocalStorage, [IndexDB](https://developers.google.com/web/ilt/pwa/lab-indexeddb), [SQLLite](https://www.sqlite.org/index.html), [Firebase](https://firebase.google.com/), [MongoDB](https://www.mongodb.com/), [MySQL](https://www.mysql.com/), [PostgresSQL](https://www.postgresql.org/) or any other suiting storage you find.
+
+## Project description
+
+The application serves the purpose of ordering pizza online.
+
+The following should be possible:
+
+* I can order a pizza of type X and price (e.g. Margherita $5, Pepperoni $6, ...)
+* I have an order of items
+* This item in an order has pizza type and the number of pizzaes of that type
+
+The "Create Order" function should allow the user to select pizza types and amounts, add to the order, see current total, and place (save) the order.
+
+Additionally, the following functions should be considered:
+
+* List the different orders
+* Details of an individual order.
+* I can test the code somewhere easily accessible
+
+---
 
 ## Getting Started with Create React App
 
