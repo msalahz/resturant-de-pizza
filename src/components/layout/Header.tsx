@@ -12,7 +12,7 @@ function FormHeader(): JSX.Element {
         <Container disableGutters maxWidth="lg" sx={{ py: 1 }}>
           <Grid container alignItems="center" justifyContent="center" spacing={3} sx={{ height: 1 }}>
             <Grid item container sx={{ width: 135 }}>
-              <img alt="Pizzeria" src="/images/pizzeria-logo.png" style={{ width: '100%' }} />
+              <img alt="Pizzeria" src="/resturant-de-pizza/images/pizzeria-logo.png" style={{ width: '100%' }} />
             </Grid>
 
             <Grid item xs="auto">
