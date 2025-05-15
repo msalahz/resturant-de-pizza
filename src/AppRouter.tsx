@@ -17,6 +17,7 @@ function App(): JSX.Element {
   return (
     <Suspense fallback={<Loading />}>
       <Router
+        basepath="/resturant-de-pizza/"
         location={location}
         routes={[
           { path: '/', element: <PrivateRouteRPC render={() => <Home />} /> },
