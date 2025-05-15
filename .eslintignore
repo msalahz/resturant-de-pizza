@@ -1,5 +1,0 @@
-**/*.js
-node_modules
-build
-package-lock.json
-src/react-app-env.d.ts
