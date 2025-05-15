@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm run install -f
+        run: npm i -f
 
       - name: Eslint code quality check
         run: npm run test:lint
