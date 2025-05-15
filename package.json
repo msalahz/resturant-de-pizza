@@ -2,6 +2,7 @@
   "name": "pizzeria-web",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://msalahz.github.io/resturant-de-pizza/",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
