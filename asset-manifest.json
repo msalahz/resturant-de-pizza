@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/resturant-de-pizza/static/css/main.05658dc9.css",
-    "main.js": "/resturant-de-pizza/static/js/main.e84fc0fb.js",
+    "main.js": "/resturant-de-pizza/static/js/main.7a6a6b1e.js",
     "orders.route.js": "/resturant-de-pizza/static/js/orders.route.c8bdd44c.chunk.js",
     "order.details.route.js": "/resturant-de-pizza/static/js/order.details.route.185c101d.chunk.js",
     "static/js/787.73d8be87.chunk.js": "/resturant-de-pizza/static/js/787.73d8be87.chunk.js",
@@ -40,7 +40,7 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/resturant-de-pizza/static/media/roboto-greek-ext-700-normal.9674bc0ae12c2551d9d1.woff2",
     "index.html": "/resturant-de-pizza/index.html",
     "main.05658dc9.css.map": "/resturant-de-pizza/static/css/main.05658dc9.css.map",
-    "main.e84fc0fb.js.map": "/resturant-de-pizza/static/js/main.e84fc0fb.js.map",
+    "main.7a6a6b1e.js.map": "/resturant-de-pizza/static/js/main.7a6a6b1e.js.map",
     "orders.route.c8bdd44c.chunk.js.map": "/resturant-de-pizza/static/js/orders.route.c8bdd44c.chunk.js.map",
     "order.details.route.185c101d.chunk.js.map": "/resturant-de-pizza/static/js/order.details.route.185c101d.chunk.js.map",
     "787.73d8be87.chunk.js.map": "/resturant-de-pizza/static/js/787.73d8be87.chunk.js.map",
@@ -48,6 +48,6 @@
   },
   "entrypoints": [
     "static/css/main.05658dc9.css",
-    "static/js/main.e84fc0fb.js"
+    "static/js/main.7a6a6b1e.js"
   ]
 }
