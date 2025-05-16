@@ -23,7 +23,11 @@ function MenuItem({ data: product }: Props): JSX.Element {
 
   return (
     <Card sx={{ width: '100%', minWidth: 250, p: 1 }}>
-      <CardMedia component="img" sx={{ width: 200, height: 'auto', margin: 'auto' }} image={product?.image} />
+      <CardMedia
+        component="img"
+        sx={{ width: 200, height: 'auto', margin: 'auto' }}
+        image={`/resturant-de-pizza${product?.image}`}
+      />
       <CardContent sx={{ position: 'relative', top: 0 }}>
         <Grid container direction="column" spacing={1}>
           <Grid item container alignItems="center">
