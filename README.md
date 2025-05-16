@@ -1,4 +1,8 @@
-# 🍕 Restaurant de Pizza (https://msalahz.github.io/resturant-de-pizza/)
+# 🍕 Restaurant de Pizza
+
+## 🔗 Live Demo
+
+Try it now: [Restaurant de Pizza](https://msalahz.github.io/resturant-de-pizza/)
 
 ## 🚀 How to Use
 
